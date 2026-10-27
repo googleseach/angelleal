@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Angel F. Leal, Jr., P.A. — Abogados de Inmigración en Miami</title>
+<meta name="description" content="Bufete de abogados de inmigración en Miami. Asilo, residencia, ciudadanía y perdones. Consulta en línea.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/layout.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<link rel="stylesheet" href="assets/css/form.css">
+</head>
+<body>
+
+<!-- CONTENEDORES PARA LOS FRAGMENTOS HTML -->
+<div id="app-header"></div>
+<div id="app-inicio"></div>
+<div id="app-practica"></div>
+<div id="app-consultas"></div>
+<div id="app-contacto"></div>
+<div id="app-footer"></div>
+
+<!-- SCRIPTS -->
+<script src="assets/js/layout-loader.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/navigation.js"></script>
+<script src="assets/js/form-config.js"></script>
+<script src="assets/js/form-steps.js"></script>
+<script src="assets/js/form-main.js"></script>
+
+<!-- INICIALIZACIÓN FINAL (espera a que el layout esté cargado) -->
+<script>
+  document.addEventListener("layoutLoaded", () => {
+    if(typeof initAuth === "function") initAuth();
+    
+    // Cargar sesión guardada si existe
+    const token = localStorage.getItem("al_session");
+    const email = localStorage.getItem("al_email");
+    
+    if(token && email && typeof onAuthed === "function"){
+      onAuthed(token, email);
+      apiCall("obtenerProgreso", {sessionToken: token}).then(data=>{
+        if(data.progreso && typeof restoreProgress === "function") restoreProgress(data.progreso);
+      }).catch(()=>{});
+    }
+  });
+</script>
+
+</body>
+</html>

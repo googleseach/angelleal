@@ -1,0 +1,133 @@
+﻿<section class="page" id="page-consultas">
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb">
+      <a href="#" onclick="showPage('inicio'); return false;">Inicio</a><span class="sep">›</span><span id="consultas-crumb">Consultas</span>
+    </div>
+  </div>
+  <div id="consultas-info">
+    <div class="consultas-intro">
+      <h1>Consulta con un abogado de inmigración</h1>
+      <p>En su consulta, un abogado de nuestra oficina revisa su situación, responde sus preguntas y le explica sus opciones y los próximos pasos. Es una conversación privada y confidencial, en español o en inglés.</p>
+      <div class="price-callout">Consulta con el abogado de turno: <strong>$250</strong>. Se abona para poder agendar; nuestro equipo se pone en contacto con usted para coordinar el pago y la cita.</div>
+      <ol class="steps-numbered">
+        <li><span class="num">1</span><span>Complete el formulario "Solicitar consulta" con su información básica.</span></li>
+        <li><span class="num">2</span><span>Nuestro equipo lo contacta para coordinar el pago de $250 y agendar su cita.</span></li>
+        <li><span class="num">3</span><span>Hable con un abogado sobre su caso y los próximos pasos.</span></li>
+      </ol>
+      <button class="btn-solicitar" onclick="showFormulario()">Solicitar consulta</button>
+      <p class="phone-reminder">¿Prefiere hablar con alguien primero? Llámenos al <a href="tel:+13058563139">(305) 856-3139</a>.</p>
+      <div class="payment-notice">Su pago siempre lo coordina directamente nuestra oficina. Nunca le pediremos que pague por Zelle, criptomonedas o a una cuenta personal. Si alguien lo contacta a nombre de la firma y le genera dudas, llámenos al (305) 856-3139 para confirmar antes de pagar.</div>
+    </div>
+  </div>
+  <div id="consultas-formulario" class="hidden">
+    <div class="page-content" style="padding-bottom:20px;">
+      <button class="btn btn-secondary" onclick="hideFormulario()" style="margin-bottom:20px;">← Volver</button>
+      <h1 style="font-size:1.6rem;">Solicitar consulta</h1>
+      <p>Complete el formulario a continuación. Puede guardar su progreso y continuar después.</p>
+    </div>
+    <div id="auth-screen">
+      <div class="auth-wrap">
+        <div class="auth-tabs">
+          <div class="auth-tab active" data-tab="login">Iniciar sesión</div>
+          <div class="auth-tab" data-tab="register">Crear cuenta</div>
+        </div>
+        <div id="auth-msg" class="auth-msg"></div>
+        <form id="login-form">
+          <div class="field"><label>Correo electrónico</label><input type="email" id="login-email" required></div>
+          <div class="field"><label>Contraseña</label><input type="password" id="login-password" required></div>
+          <button type="submit" class="btn btn-primary" style="width:100%">Entrar</button>
+        </form>
+        <form id="register-form" class="hidden">
+          <div class="field"><label>Nombre completo</label><input type="text" id="reg-name" required></div>
+          <div class="field"><label>Correo electrónico</label><input type="email" id="reg-email" required></div>
+          <div class="field"><label>Contraseña</label><input type="password" id="reg-password" required minlength="8"><div class="hint">Mínimo 8 caracteres.</div></div>
+          <div class="field"><label>Confirmar contraseña</label><input type="password" id="reg-password2" required minlength="8"></div>
+          <button type="submit" class="btn btn-primary" style="width:100%">Crear cuenta</button>
+        </form>
+      </div>
+    </div>
+    <div id="app" class="app hidden">
+      <nav class="rail" id="rail"></nav>
+      <main class="main">
+        <div id="top-status" class="top-status hidden">
+          <span id="user-email-label"></span>
+          <button id="logout-btn" type="button">Cerrar sesión</button>
+        </div>
+        <div class="mobile-progress" id="mobile-progress"></div>
+        <section class="step" data-step="0">
+          <div class="step-eyebrow">Paso 1 de 5</div>
+          <h2 class="step-title">¿Qué trámite necesita?</h2>
+          <p class="step-sub">Seleccione el tipo de caso. Los siguientes pasos se ajustarán según su selección.</p>
+          <div class="radio-cards" id="case-type-cards">
+            <div class="radio-card" data-value="asilo"><h3>Asilo</h3><p>Protección por persecución en su país de origen.</p></div>
+            <div class="radio-card" data-value="residencia"><h3>Residencia</h3><p>Green card por vía familiar o de empleo.</p></div>
+            <div class="radio-card" data-value="ciudadania"><h3>Ciudadanía</h3><p>Naturalización (formulario N-400).</p></div>
+            <div class="radio-card" data-value="perdon"><h3>Perdón (Waiver)</h3><p>Perdón de inadmisibilidad migratoria.</p></div>
+          </div>
+        </section>
+        <section class="step hidden" data-step="1">
+          <div class="step-eyebrow">Paso 2 de 5</div>
+          <h2 class="step-title">Datos personales</h2>
+          <p class="step-sub">Esta información se usará para preparar su expediente.</p>
+          <div class="row2">
+            <div class="field"><label>Nombre(s) <span class="req">*</span></label><input type="text" id="p-nombres"><div class="field-error">Ingrese su nombre.</div></div>
+            <div class="field"><label>Apellido(s) <span class="req">*</span></label><input type="text" id="p-apellidos"><div class="field-error">Ingrese su apellido.</div></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Fecha de nacimiento <span class="req">*</span></label><input type="date" id="p-nacimiento"><div class="field-error">Ingrese su fecha de nacimiento.</div></div>
+            <div class="field"><label>País de nacimiento <span class="req">*</span></label><input type="text" id="p-pais-nacimiento"><div class="field-error">Ingrese su país de nacimiento.</div></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Teléfono <span class="req">*</span></label><input type="tel" id="p-telefono"><div class="field-error">Ingrese un teléfono de contacto.</div></div>
+            <div class="field"><label>A-Number (si tiene)</label><input type="text" id="p-anumber" placeholder="A-000000000"></div>
+          </div>
+          <div class="field"><label>Dirección actual <span class="req">*</span></label><input type="text" id="p-direccion"><div class="field-error">Ingrese su dirección actual.</div></div>
+          <div class="row2">
+            <div class="field"><label>Estado civil <span class="req">*</span></label>
+              <select id="p-estado-civil"><option value="">Seleccione…</option><option>Soltero/a</option><option>Casado/a</option><option>Divorciado/a</option><option>Viudo/a</option></select>
+              <div class="field-error">Seleccione su estado civil.</div>
+            </div>
+            <div class="field"><label>Fecha de entrada a EE.UU.</label><input type="date" id="p-fecha-entrada"></div>
+          </div>
+        </section>
+        <section class="step hidden" data-step="2">
+          <div class="step-eyebrow">Paso 3 de 5</div>
+          <h2 class="step-title" id="case-step-title">Detalles del caso</h2>
+          <p class="step-sub" id="case-step-sub"></p>
+          <div id="case-fields"></div>
+        </section>
+        <section class="step hidden" data-step="3">
+          <div class="step-eyebrow">Paso 4 de 5</div>
+          <h2 class="step-title">Documentos</h2>
+          <p class="step-sub">Suba copias claras en PDF o imagen (JPG/PNG). Máximo 10 MB por archivo.</p>
+          <div id="doc-groups"></div>
+        </section>
+        <section class="step hidden" data-step="4">
+          <div class="step-eyebrow">Paso 5 de 5</div>
+          <h2 class="step-title">Revise y envíe</h2>
+          <p class="step-sub">Verifique que la información sea correcta antes de enviar su solicitud a la oficina.</p>
+          <div id="review-content"></div>
+          <div class="privacy-notice">
+            <strong>Aviso de privacidad:</strong> La información que usted proporcione (incluyendo datos personales, migratorios y documentos adjuntos) será utilizada exclusivamente por Angel F. Leal, Jr., P.A. para evaluar y preparar su caso. Se almacena en Google Drive y Google Sheets bajo acceso restringido al personal autorizado del despacho. No se comparte con terceros sin su consentimiento, salvo cuando sea requerido por ley o por una autoridad competente.
+          </div>
+          <div class="field" style="margin-top:10px;">
+            <label style="display:flex; align-items:flex-start; gap:10px; font-weight:500;">
+              <input type="checkbox" id="confirm-truth" style="width:auto; margin-top:3px;">
+              Confirmo que la información proporcionada es verdadera y completa a mi leal saber y entender.
+            </label>
+          </div>
+        </section>
+        <div class="step-nav">
+          <button type="button" class="btn btn-secondary" id="btn-back">Atrás</button>
+          <span class="save-note" id="save-note"></span>
+          <button type="button" class="btn btn-primary" id="btn-next">Continuar</button>
+        </div>
+      </main>
+    </div>
+    <div id="confirm-screen" class="confirm-wrap hidden">
+      <div class="confirm-mark">✓</div>
+      <h2 class="step-title">Solicitud enviada</h2>
+      <p class="step-sub" style="margin:0 auto;">Hemos recibido su solicitud. La oficina de Angel F. Leal, Jr., P.A. se comunicará con usted en los próximos días hábiles al teléfono o correo proporcionado.</p>
+    </div>
+  </div>
+</section>
