@@ -48,3 +48,10 @@
   object-fit: cover;
   flex-shrink: 0;
 }
+
+/* Logo Header Horizontal */
+.brand-logo-horizontal {
+  height: 40px;
+  width: auto;
+  object-fit: contain;
+}
