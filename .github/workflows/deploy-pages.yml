@@ -5,6 +5,7 @@ on:
     paths:
       - "index.html"
       - "assets/**"
+      - "views/**"
       - ".github/workflows/deploy-pages.yml"
   workflow_dispatch:
 permissions:
@@ -29,6 +30,9 @@ jobs:
           cp index.html _site/index.html
           if [ -d "assets" ]; then
             cp -r assets _site/assets
+          fi
+          if [ -d "views" ]; then
+            cp -r views _site/views
           fi
           printf "User-agent: *\nDisallow: /\n" > _site/robots.txt
       - name: Configurar Pages
