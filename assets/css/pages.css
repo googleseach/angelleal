@@ -61,3 +61,27 @@
 @media (max-width:860px){
   .services-grid{grid-template-columns:1fr;}
 }
+
+/* Foto del Hero */
+.hero-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
+/* Iconos de Servicios */
+.service-icon {
+  width: 64px;
+  height: 64px;
+  margin: 0 auto 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+}
+.service-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
