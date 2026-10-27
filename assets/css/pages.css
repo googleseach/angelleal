@@ -3,12 +3,17 @@
 .page.active{display:block; animation:fadeIn .25s ease-out;}
 @keyframes fadeIn{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
 
-/* ---------- HERO ---------- */
+/* ---------- HERO CON CORTE SUPREMA ---------- */
 .hero{
   position:relative;
-  background:linear-gradient(135deg, var(--ink) 0%, var(--navy-2) 100%);
+  /* Aquí aplicamos la imagen de fondo con el filtro oscuro */
+  background-image: linear-gradient(rgba(16, 32, 58, 0.75), rgba(16, 32, 58, 0.75)), url('assets/img/supreme-court-min.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   color:#fff;
   overflow:hidden;
+  border-bottom: 4px solid var(--red);
 }
 .hero-inner{
   max-width:1200px;
@@ -25,13 +30,15 @@
   line-height:1.15;
   color:#fff;
   margin-bottom:18px;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 .hero-text .tagline{
   font-size:1.05rem;
-  color:#CBD3E1;
+  color:#E2E8F0;
   line-height:1.6;
   margin-bottom:28px;
   max-width:50ch;
+  text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
 }
 .hero-cta{
   display:inline-flex;
@@ -68,6 +75,8 @@
   max-height: 480px;
   object-fit: contain;
   border-radius: var(--radius);
+  /* Sombra para que la foto resalte sobre el fondo */
+  filter: drop-shadow(0px 10px 20px rgba(0,0,0,0.5)); 
 }
 
 /* ---------- SERVICES ---------- */
@@ -348,13 +357,4 @@
   .row2 {
     grid-template-columns: 1fr;
   }
-}
-
-/* Fondo del Capitolio en el Hero */
-.hero {
-  background-image: linear-gradient(rgba(16, 32, 58, 0.7), rgba(16, 32, 58, 0.7)), url('assets/img/capitol-min.jpg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-bottom: 4px solid var(--red);
 }
