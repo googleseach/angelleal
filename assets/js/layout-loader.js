@@ -1,7 +1,8 @@
 ﻿document.addEventListener("DOMContentLoaded", async () => {
   const loadHTML = async (selector, file) => {
     try {
-      const res = await fetch(file);
+      // Agregamos un timestamp para evitar la caché del navegador
+      const res = await fetch(file + "?v=" + new Date().getTime());
       if (!res.ok) throw new Error(`Error al cargar ${file}`);
       const html = await res.text();
       const el = document.querySelector(selector);
@@ -11,7 +12,6 @@
     }
   };
 
-  // Esperamos a que TODOS los fragmentos se carguen en orden
   await Promise.all([
     loadHTML("#app-header", "views/header.html"),
     loadHTML("#app-inicio", "views/inicio.html"),
@@ -21,6 +21,5 @@
     loadHTML("#app-footer", "views/footer.html")
   ]);
 
-  // Disparamos el evento para inicializar la lógica
   document.dispatchEvent(new Event("layoutLoaded"));
 });
