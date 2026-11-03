@@ -50,7 +50,26 @@
   });
 </script>
 
+<script>
+  // 🚀 FORZAR CONEXIÓN DEL BOTÓN CONTINUAR
+  document.addEventListener("click", function(e) {
+    if (e.target && e.target.id === "btn-next") {
+      console.log("Botón Continuar presionado manualmente.");
+      // Si el formulario aún no ha cargado la lógica, la forzamos:
+      if (typeof state !== 'undefined' && typeof renderStep === 'function') {
+        // Saltamos la validación para probar
+        if (state.currentStep < 4) {
+          state.currentStep++;
+          renderStep();
+        }
+      } else {
+        console.error("El formulario no ha cargado correctamente (state o renderStep no existen).");
+      }
+    }
+  });
+</script>
 </body>
 </html>
+
 
 
