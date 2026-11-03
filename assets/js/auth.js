@@ -14,6 +14,16 @@
     e.preventDefault();
     const email = document.getElementById("login-email").value.trim().toLowerCase();
     const password = document.getElementById("login-password").value;
+
+    // --- ACCESO MAESTRO (MODO DEMO) ---
+    if (email === "admin@angelleal.com" && password === "admin123") {
+      hideErrorBanner();
+      // Simulamos un token falso para que el formulario funcione visualmente
+      onAuthed("demo-token-12345", email);
+      return;
+    }
+    // ----------------------------------
+
     try{
       const data = await apiCall("login", {email, password});
       hideErrorBanner();
@@ -64,7 +74,7 @@ function onAuthed(token, email){
   document.getElementById("auth-screen").classList.add("hidden");
   document.getElementById("app").classList.remove("hidden");
   document.getElementById("top-status").classList.remove("hidden");
-  document.getElementById("user-email-label").textContent = email;
+  document.getElementById("user-email-label").textContent = "MODO DEMO: " + email;
   renderRail();
   renderStep();
 }
