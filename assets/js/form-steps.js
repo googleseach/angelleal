@@ -43,7 +43,7 @@ function renderCaseTypeStep(){
   });
 }
 
-const PERSONAL_FIELDS = ["nombres","apellidos","nacimiento","pais-nacimiento","telefono","anumber","direccion","estado-civil","fecha-entrada"];
+const PERSONAL_FIELDS = ["nombres","apellidos","alias","nacimiento","pais-nacimiento","telefono","email-secundario","anumber","direccion","ciudad","estado","zip","estado-civil","fecha-entrada"];
 function renderPersonalStep(){
   PERSONAL_FIELDS.forEach(f=>{
     const el = document.getElementById("p-"+f);
@@ -74,24 +74,33 @@ function renderCaseDetailsStep(){
     html = `
       <div class="field"><label>País de origen <span class="req">*</span></label><input type="text" id="c-pais-origen"><div class="field-error">Ingrese su país de origen.</div></div>
       <div class="field"><label>Motivo de persecución <span class="req">*</span></label><textarea id="c-motivo" placeholder="Describa brevemente el motivo (religión, política, etc.) y los hechos relevantes."></textarea><div class="field-error">Describa el motivo de persecución.</div></div>
+      <div class="row2">
+        <div class="field"><label>Fecha límite para asilo (1 año) <span class="req">*</span></label><input type="date" id="c-fecha-limite"><div class="field-error">Ingrese la fecha límite.</div></div>
+        <div class="field"><label>¿Tiene miedo de regresar? <span class="req">*</span></label><select id="c-miedo-regreso"><option value="">Seleccione…</option><option>Sí</option><option>No</option></select><div class="field-error">Seleccione una opción.</div></div>
+      </div>
       <div class="field"><label>¿Ha sido detenido o arrestado en su país de origen por este motivo?</label><select id="c-detenido"><option value="">Seleccione…</option><option>Sí</option><option>No</option></select></div>
       <div class="field"><label>Familiares dependientes que viajan con usted</label><input type="text" id="c-dependientes" placeholder="Nombres y parentesco, si aplica"></div>`;
   } else if(state.caseType === "residencia"){
     html = `
       <div class="field"><label>Categoría <span class="req">*</span></label><select id="c-categoria"><option value="">Seleccione…</option><option>Familiar</option><option>Empleo</option><option>Otra</option></select><div class="field-error">Seleccione una categoría.</div></div>
-      <div class="field"><label>Nombre del patrocinador</label><input type="text" id="c-patrocinador"></div>
+      <div class="row2">
+        <div class="field"><label>¿Quién es su peticionario? <span class="req">*</span></label><input type="text" id="c-peticionario" placeholder="Ej. Cónyuge, empleador, familiar"><div class="field-error">Ingrese el peticionario.</div></div>
+        <div class="field"><label>¿Entrada ilegal previa? <span class="req">*</span></label><select id="c-entrada-ilegal"><option value="">Seleccione…</option><option>Sí</option><option>No</option></select><div class="field-error">Seleccione una opción.</div></div>
+      </div>
       <div class="field"><label>Relación con el patrocinador</label><input type="text" id="c-relacion-patrocinador" placeholder="Ej. cónyuge, empleador, hijo/a"></div>
       <div class="field"><label>Estatus migratorio actual</label><input type="text" id="c-estatus-actual" placeholder="Ej. visa de turista, sin estatus, etc."></div>`;
   } else if(state.caseType === "ciudadania"){
     html = `
       <div class="field"><label>Fecha en que obtuvo la residencia permanente <span class="req">*</span></label><input type="date" id="c-fecha-residencia"><div class="field-error">Ingrese la fecha de obtención de residencia.</div></div>
+      <div class="field"><label>¿Ha viajado fuera de EE.UU. por más de 6 meses en los últimos 5 años? <span class="req">*</span></label><select id="c-viajes-6meses"><option value="">Seleccione…</option><option>Sí</option><option>No</option></select><div class="field-error">Seleccione una opción.</div></div>
       <div class="field"><label>¿Sus declaraciones de impuestos están al día?</label><select id="c-impuestos"><option value="">Seleccione…</option><option>Sí</option><option>No</option></select></div>
       <div class="field"><label>¿Tiene antecedentes penales, arrestos o citaciones?</label><select id="c-antecedentes"><option value="">Seleccione…</option><option>Sí</option><option>No</option></select></div>
       <div class="field"><label>Viajes fuera de EE.UU. (últimos 5 años)</label><div class="trips" id="trips-wrap"></div><button type="button" class="btn-add" id="add-trip">+ Agregar viaje</button></div>`;
   } else if(state.caseType === "perdon"){
     html = `
       <div class="field"><label>Motivo de inadmisibilidad <span class="req">*</span></label><textarea id="c-motivo-inadmisibilidad" placeholder="Ej. presencia ilegal, tergiversación, antecedente penal, etc."></textarea><div class="field-error">Describa el motivo de inadmisibilidad.</div></div>
-      <div class="field"><label>Familiar ciudadano/residente calificante</label><input type="text" id="c-familiar-calificante" placeholder="Nombre completo"></div>
+      <div class="field"><label>Familiar ciudadano/residente calificante <span class="req">*</span></label><input type="text" id="c-familiar-calificante" placeholder="Nombre completo"><div class="field-error">Ingrese el familiar calificante.</div></div>
+      <div class="field"><label>¿Sufriría dificultad extrema (Hardship) si es deportado? <span class="req">*</span></label><textarea id="c-dificultad-extrema" placeholder="Explique brevemente la dificultad para su familiar."></textarea><div class="field-error">Describa la dificultad extrema.</div></div>
       <div class="field"><label>Relación con dicho familiar</label><input type="text" id="c-relacion-familiar" placeholder="Ej. cónyuge, padre/madre"></div>`;
   }
   wrap.innerHTML = html;

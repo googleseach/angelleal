@@ -19,6 +19,7 @@
       <div class="payment-notice">Su pago siempre lo coordina directamente nuestra oficina. Nunca le pediremos que pague por Zelle, criptomonedas o a una cuenta personal. Si alguien lo contacta a nombre de la firma y le genera dudas, llámenos al (305) 856-3139 para confirmar antes de pagar.</div>
     </div>
   </div>
+
   <div id="consultas-formulario" class="hidden">
     <div class="page-content" style="padding-bottom:20px;">
       <button class="btn btn-secondary" onclick="hideFormulario()" style="margin-bottom:20px;">← Volver</button>
@@ -69,26 +70,42 @@
           <div class="step-eyebrow">Paso 2 de 5</div>
           <h2 class="step-title">Datos personales</h2>
           <p class="step-sub">Esta información se usará para preparar su expediente.</p>
+          
           <div class="row2">
             <div class="field"><label>Nombre(s) <span class="req">*</span></label><input type="text" id="p-nombres"><div class="field-error">Ingrese su nombre.</div></div>
             <div class="field"><label>Apellido(s) <span class="req">*</span></label><input type="text" id="p-apellidos"><div class="field-error">Ingrese su apellido.</div></div>
           </div>
+          
+          <div class="field"><label>Alias u otros nombres usados</label><input type="text" id="p-alias" placeholder="Si ha usado otros nombres, ingréselos aquí."></div>
+          
           <div class="row2">
             <div class="field"><label>Fecha de nacimiento <span class="req">*</span></label><input type="date" id="p-nacimiento"><div class="field-error">Ingrese su fecha de nacimiento.</div></div>
             <div class="field"><label>País de nacimiento <span class="req">*</span></label><input type="text" id="p-pais-nacimiento"><div class="field-error">Ingrese su país de nacimiento.</div></div>
           </div>
+          
           <div class="row2">
             <div class="field"><label>Teléfono <span class="req">*</span></label><input type="tel" id="p-telefono"><div class="field-error">Ingrese un teléfono de contacto.</div></div>
-            <div class="field"><label>A-Number (si tiene)</label><input type="text" id="p-anumber" placeholder="A-000000000"></div>
+            <div class="field"><label>Correo secundario</label><input type="email" id="p-email-secundario" placeholder="Opcional"></div>
           </div>
+          
+          <div class="field"><label>A-Number (si tiene)</label><input type="text" id="p-anumber" placeholder="A-000000000"></div>
+          
           <div class="field"><label>Dirección actual <span class="req">*</span></label><input type="text" id="p-direccion"><div class="field-error">Ingrese su dirección actual.</div></div>
+          
           <div class="row2">
+            <div class="field"><label>Ciudad <span class="req">*</span></label><input type="text" id="p-ciudad"><div class="field-error">Ingrese su ciudad.</div></div>
+            <div class="field"><label>Estado <span class="req">*</span></label><input type="text" id="p-estado"><div class="field-error">Ingrese su estado.</div></div>
+          </div>
+          
+          <div class="row2">
+            <div class="field"><label>Código Postal <span class="req">*</span></label><input type="text" id="p-zip"><div class="field-error">Ingrese su código postal.</div></div>
             <div class="field"><label>Estado civil <span class="req">*</span></label>
               <select id="p-estado-civil"><option value="">Seleccione…</option><option>Soltero/a</option><option>Casado/a</option><option>Divorciado/a</option><option>Viudo/a</option></select>
               <div class="field-error">Seleccione su estado civil.</div>
             </div>
-            <div class="field"><label>Fecha de entrada a EE.UU.</label><input type="date" id="p-fecha-entrada"></div>
           </div>
+          
+          <div class="field"><label>Fecha de entrada a EE.UU.</label><input type="date" id="p-fecha-entrada"></div>
         </section>
         <section class="step hidden" data-step="2">
           <div class="step-eyebrow">Paso 3 de 5</div>
