@@ -142,10 +142,12 @@
           <button type="button" class="btn btn-secondary" id="btn-back">Atrás</button>
           <span class="save-note" id="save-note"></span>
           <button type="button" class="btn btn-primary" id="btn-next" onclick="
-  if(window.state && window.state.currentStep === 4) { 
-    window.enviarSolicitudForzada(); 
-  } else { 
-    document.dispatchEvent(new Event('avanzarPaso')); 
+  if(window.state && window.state.currentStep === 4) {
+    document.getElementById('app').classList.add('hidden');
+    document.getElementById('top-status').classList.add('hidden');
+    document.getElementById('confirm-screen').classList.remove('hidden');
+  } else {
+    document.dispatchEvent(new Event('avanzarPaso'));
   }
 ">Continuar</button>
         </div>
@@ -173,6 +175,7 @@
     </div>
   </div>
 </section>
+
 
 
 
