@@ -2,7 +2,6 @@
   sessionToken: null, email: null, currentStep: 0,
   caseType: null, personal: {}, caseDetails: {}, trips: [], files: {}
 };
-window.state = state; // Exponer globalmente
 let saveTimer = null;
 
 function esc(value){
@@ -91,58 +90,52 @@ function scheduleSave(){
   }, 900);
 }
 
-// Hacemos la función global
-window.submitApplication = async function() {
-  console.log("Iniciando submitApplication...");
+async function submitApplication(){
   const btn = document.getElementById("btn-next");
   if(btn){ btn.disabled = true; btn.textContent = "Enviando…"; }
   
-  setTimeout(async () => {
-    try {
-      if(state.sessionToken !== "demo-token-12345") {
-        await apiCall("enviarSolicitud", {sessionToken: state.sessionToken, progreso: stateSnapshot()});
-      }
-      
-      hideErrorBanner();
-      document.getElementById("app").classList.add("hidden");
-      document.getElementById("top-status").classList.add("hidden");
-      document.getElementById("confirm-screen").classList.remove("hidden");
-      
-    } catch(err) {
-      console.error(err);
-      alert("No se pudo enviar la solicitud: " + (err.message||"intente de nuevo."));
-      if(btn){ btn.disabled = false; btn.textContent = "Enviar solicitud"; }
+  try {
+    if(state.sessionToken !== "demo-token-12345") {
+      await apiCall("enviarSolicitud", {sessionToken: state.sessionToken, progreso: stateSnapshot()});
     }
-  }, 1000);
-};
-
-document.addEventListener("forzarAvance", () => {
-  if(state.currentStep < 4){
-    state.currentStep++;
-    renderStep();
-    scheduleSave();
+    
+    // Si llega aquí, mostramos la pantalla de confirmación (Gracias)
+    hideErrorBanner();
+    document.getElementById("app").classList.add("hidden");
+    document.getElementById("top-status").classList.add("hidden");
+    document.getElementById("confirm-screen").classList.remove("hidden");
+    
+  } catch(err) {
+    console.error(err);
+    alert("No se pudo enviar la solicitud: " + (err.message||"intente de nuevo."));
+    if(btn){ btn.disabled = false; btn.textContent = "Enviar solicitud"; }
   }
-});
+}
 
 document.addEventListener("DOMContentLoaded", () => {
   initAuth();
   
   const btnNextEl = document.getElementById("btn-next");
   if(btnNextEl){
-    btnNextEl.addEventListener("click", async (e)=>{
-      // Si el botón ya tiene el onclick en el HTML, evitamos duplicar
-      if(e.target.getAttribute('onclick')) return;
+    // Nos aseguramos de quitar cualquier evento previo
+    btnNextEl.replaceWith(btnNextEl.cloneNode(true)); 
+    const cleanBtn = document.getElementById("btn-next");
 
+    cleanBtn.addEventListener("click", async (e)=>{
       e.preventDefault();
+      
+      // Si estamos en el paso final, enviamos
+      if(state.currentStep === 4) {
+        await submitApplication();
+        return;
+      }
+
+      // Si no, validamos y avanzamos
       if(!validateStep(state.currentStep)) return;
       
-      if(state.currentStep < 4){
-        state.currentStep++;
-        renderStep();
-        scheduleSave();
-      } else {
-        await window.submitApplication();
-      }
+      state.currentStep++;
+      renderStep();
+      scheduleSave();
     });
   }
 
