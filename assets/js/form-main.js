@@ -2,6 +2,7 @@
   sessionToken: null, email: null, currentStep: 0,
   caseType: null, personal: {}, caseDetails: {}, trips: [], files: {}
 };
+window.state = state; // Exponer globalmente
 let saveTimer = null;
 
 function esc(value){
@@ -90,14 +91,14 @@ function scheduleSave(){
   }, 900);
 }
 
-async function submitApplication(){
+// Hacemos la función global
+window.submitApplication = async function() {
+  console.log("Iniciando submitApplication...");
   const btn = document.getElementById("btn-next");
   if(btn){ btn.disabled = true; btn.textContent = "Enviando…"; }
   
-  // Simulamos un pequeño retraso de 1.5 segundos para dar sensación de procesamiento
   setTimeout(async () => {
     try {
-      // Intentamos guardar en el backend real si no es demo
       if(state.sessionToken !== "demo-token-12345") {
         await apiCall("enviarSolicitud", {sessionToken: state.sessionToken, progreso: stateSnapshot()});
       }
@@ -108,11 +109,20 @@ async function submitApplication(){
       document.getElementById("confirm-screen").classList.remove("hidden");
       
     } catch(err) {
+      console.error(err);
       alert("No se pudo enviar la solicitud: " + (err.message||"intente de nuevo."));
       if(btn){ btn.disabled = false; btn.textContent = "Enviar solicitud"; }
     }
-  }, 1500);
-}
+  }, 1000);
+};
+
+document.addEventListener("forzarAvance", () => {
+  if(state.currentStep < 4){
+    state.currentStep++;
+    renderStep();
+    scheduleSave();
+  }
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   initAuth();
@@ -120,8 +130,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnNextEl = document.getElementById("btn-next");
   if(btnNextEl){
     btnNextEl.addEventListener("click", async (e)=>{
+      // Si el botón ya tiene el onclick en el HTML, evitamos duplicar
+      if(e.target.getAttribute('onclick')) return;
+
       e.preventDefault();
-      
       if(!validateStep(state.currentStep)) return;
       
       if(state.currentStep < 4){
@@ -129,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         renderStep();
         scheduleSave();
       } else {
-        await submitApplication();
+        await window.submitApplication();
       }
     });
   }
