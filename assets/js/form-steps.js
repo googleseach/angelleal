@@ -37,7 +37,9 @@ function renderCaseTypeStep(){
     card.classList.toggle("selected", card.dataset.value === state.caseType);
     card.onclick = ()=>{
       state.caseType = card.dataset.value;
+      // Volvemos a renderizar para pintar el borde rojo
       renderCaseTypeStep();
+      // Guardamos el progreso
       scheduleSave();
     };
   });
@@ -238,4 +240,5 @@ function renderReviewStep(){
   const rc = document.getElementById("review-content");
   if(rc) rc.innerHTML = html;
 }
+
 

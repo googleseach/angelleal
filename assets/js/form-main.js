@@ -21,7 +21,7 @@ function markInvalidAndScroll(selector){
 }
 
 function validateStep(step){
-  // En modo demo, podemos permitir avanzar sin llenar los campos obligatorios
+  // En modo demo, permitimos avanzar siempre
   if(state.sessionToken === "demo-token-12345") return true;
 
   if(step===0){
@@ -77,7 +77,6 @@ function stateSnapshot(){
 }
 
 function scheduleSave(){
-  // Si es modo demo, no guardamos nada
   if(state.sessionToken === "demo-token-12345") return;
 
   const note = document.getElementById("save-note");
@@ -94,7 +93,6 @@ function scheduleSave(){
 }
 
 async function submitApplication(){
-  // Si es modo demo, simulamos el envío exitoso
   if(state.sessionToken === "demo-token-12345") {
     document.getElementById("app").classList.add("hidden");
     document.getElementById("top-status").classList.add("hidden");
