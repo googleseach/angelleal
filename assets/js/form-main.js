@@ -21,10 +21,7 @@ function markInvalidAndScroll(selector){
 }
 
 function validateStep(step){
-  // 🚨 SI ES MODO DEMO, IGNORAMOS TODAS LAS VALIDACIONES
-  if (state.sessionToken === "demo-token-12345") {
-    return true; 
-  }
+  if(state.sessionToken === "demo-token-12345") return true;
 
   if(step===0){
     if(!state.caseType){ alert("Seleccione un tipo de trámite para continuar."); return false; }
@@ -80,17 +77,20 @@ function stateSnapshot(){
 
 function scheduleSave(){
   if(state.sessionToken === "demo-token-12345") return;
+  
   const note = document.getElementById("save-note");
   if(note) note.textContent = "Guardando…";
+  
   clearTimeout(saveTimer);
   saveTimer = setTimeout(async ()=>{
     try{
       await apiCall("guardarProgreso", {sessionToken: state.sessionToken, progreso: stateSnapshot()});
       if(note) note.textContent = "Progreso guardado ✓";
     }catch(err){
-      if(note) note.textContent = "No se pudo guardar (revise su conexión).";
+      if(note) note.textContent = "No se pudo guardar.";
+      console.error("Error al guardar:", err);
     }
-  }, 900);
+  }, 1000);
 }
 
 async function submitApplication(){
@@ -122,13 +122,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if(btnNextEl){
     btnNextEl.addEventListener("click", async (e)=>{
       e.preventDefault();
-      // Forzamos la validación (que en modo demo devuelve true siempre)
+      
+      // Validamos el paso
       if(!validateStep(state.currentStep)) return;
       
+      // 🚀 AVANZAMOS INMEDIATAMENTE (sin esperar al guardado)
       if(state.currentStep < 4){
         state.currentStep++;
         renderStep();
-        scheduleSave();
+        scheduleSave(); // Se guarda en segundo plano
       } else {
         await submitApplication();
       }

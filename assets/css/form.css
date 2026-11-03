@@ -78,3 +78,7 @@ input:focus, select:focus, textarea:focus{outline:none; border-color:var(--red);
   .row2, .radio-cards{grid-template-columns:1fr;}
   .trip-row{grid-template-columns:1fr; gap:8px;}
 }
+
+/* Asegurar que el botón de continuar reciba los clics */
+.step-nav { position: relative; z-index: 10; }
+#btn-next { position: relative; z-index: 11; cursor: pointer; }
