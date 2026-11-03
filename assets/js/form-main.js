@@ -21,8 +21,10 @@ function markInvalidAndScroll(selector){
 }
 
 function validateStep(step){
-  // En modo demo, permitimos avanzar siempre
-  if(state.sessionToken === "demo-token-12345") return true;
+  // 🚨 SI ES MODO DEMO, IGNORAMOS TODAS LAS VALIDACIONES
+  if (state.sessionToken === "demo-token-12345") {
+    return true; 
+  }
 
   if(step===0){
     if(!state.caseType){ alert("Seleccione un tipo de trámite para continuar."); return false; }
@@ -78,7 +80,6 @@ function stateSnapshot(){
 
 function scheduleSave(){
   if(state.sessionToken === "demo-token-12345") return;
-
   const note = document.getElementById("save-note");
   if(note) note.textContent = "Guardando…";
   clearTimeout(saveTimer);
@@ -119,8 +120,11 @@ document.addEventListener("DOMContentLoaded", () => {
   
   const btnNextEl = document.getElementById("btn-next");
   if(btnNextEl){
-    btnNextEl.addEventListener("click", async ()=>{
+    btnNextEl.addEventListener("click", async (e)=>{
+      e.preventDefault();
+      // Forzamos la validación (que en modo demo devuelve true siempre)
       if(!validateStep(state.currentStep)) return;
+      
       if(state.currentStep < 4){
         state.currentStep++;
         renderStep();
