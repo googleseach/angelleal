@@ -55,15 +55,19 @@
           <button id="logout-btn" type="button">Cerrar sesión</button>
         </div>
         <div class="mobile-progress" id="mobile-progress"></div>
-        <section class="step" data-step="0">
+                <section class="step" data-step="0">
           <div class="step-eyebrow">Paso 1 de 5</div>
           <h2 class="step-title">¿Qué trámite necesita?</h2>
-          <p class="step-sub">Seleccione el tipo de caso. Los siguientes pasos se ajustarán según su selección.</p>
-          <div class="radio-cards" id="case-type-cards">
-            <div class="radio-card" data-value="asilo"><h3>Asilo</h3><p>Protección por persecución en su país de origen.</p></div>
-            <div class="radio-card" data-value="residencia"><h3>Residencia</h3><p>Green card por vía familiar o de empleo.</p></div>
-            <div class="radio-card" data-value="ciudadania"><h3>Ciudadanía</h3><p>Naturalización (formulario N-400).</p></div>
-            <div class="radio-card" data-value="perdon"><h3>Perdón (Waiver)</h3><p>Perdón de inadmisibilidad migratoria.</p></div>
+          <p class="step-sub">Seleccione el área legal que mejor describa su situación. Los siguientes pasos se adaptarán a su caso.</p>
+          
+          <div class="radio-cards" id="case-type-cards" style="grid-template-columns: repeat(2, 1fr);">
+            <div class="radio-card" data-value="asilo"><h3>Asilo y Alivios Humanitarios</h3><p>Asilo, protección por persecución y otros alivios.</p></div>
+            <div class="radio-card" data-value="residencia"><h3>Residencia y Visas Familiares</h3><p>Green card, peticiones I-130, visas de prometido/a (K-1).</p></div>
+            <div class="radio-card" data-value="ciudadania"><h3>Ciudadanía (Naturalización)</h3><p>Proceso N-400 y ciudadanía americana.</p></div>
+            <div class="radio-card" data-value="deportacion"><h3>Defensa contra Deportación</h3><p>Defensa en Corte de Inmigración, apelaciones, BIA.</p></div>
+            <div class="radio-card" data-value="perdon"><h3>Perdones (Waivers) y FOIA</h3><p>Perdones de inadmisibilidad, I-601, I-212, y revisión de récord (FOIA).</p></div>
+            <div class="radio-card" data-value="trabajo"><h3>Visas de Trabajo y Negocios</h3><p>Inmigración corporativa, visas de trabajo temporal.</p></div>
+            <div class="radio-card" data-value="estatal"><h3>Otros Trámites (Ley Estatal en FL)</h3><p>Divorcios, bienes raíces, corporaciones, etc.</p></div>
           </div>
         </section>
         <section class="step hidden" data-step="1">
@@ -148,3 +152,4 @@
     </div>
   </div>
 </section>
+
