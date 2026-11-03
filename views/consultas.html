@@ -128,8 +128,8 @@
           <h2 class="step-title">Revise y envíe</h2>
           <p class="step-sub">Verifique que la información sea correcta antes de enviar su solicitud a la oficina.</p>
           <div id="review-content"></div>
-          <div class="privacy-notice">
-            <strong>Aviso de privacidad:</strong> La información que usted proporcione (incluyendo datos personales, migratorios y documentos adjuntos) será utilizada exclusivamente por Angel F. Leal, Jr., P.A. para evaluar y preparar su caso. Se almacena en Google Drive y Google Sheets bajo acceso restringido al personal autorizado del despacho. No se comparte con terceros sin su consentimiento, salvo cuando sea requerido por ley o por una autoridad competente.
+                    <div class="privacy-notice">
+            <strong>Aviso de privacidad:</strong> La información y los documentos que usted proporcione serán tratados de forma estrictamente confidencial y utilizados exclusivamente por Angel F. Leal, Jr., P.A. para la evaluación y preparación de su caso. Su información no será compartida con terceros sin su consentimiento expreso, salvo cuando sea requerido por ley o por una autoridad competente.
           </div>
           <div class="field" style="margin-top:10px;">
             <label style="display:flex; align-items:flex-start; gap:10px; font-weight:500;">
@@ -145,11 +145,27 @@
         </div>
       </main>
     </div>
-    <div id="confirm-screen" class="confirm-wrap hidden">
+        <div id="confirm-screen" class="confirm-wrap hidden">
       <div class="confirm-mark">✓</div>
-      <h2 class="step-title">Solicitud enviada</h2>
-      <p class="step-sub" style="margin:0 auto;">Hemos recibido su solicitud. La oficina de Angel F. Leal, Jr., P.A. se comunicará con usted en los próximos días hábiles al teléfono o correo proporcionado.</p>
+      <h2 class="step-title">¡Gracias por confiar en nosotros!</h2>
+      <p class="step-sub" style="margin: 0 auto 20px;">
+        Hemos recibido su solicitud de evaluación. Nuestro equipo legal revisará su caso detalladamente.
+      </p>
+      <div style="background: #F8F9FA; border-left: 4px solid var(--red); padding: 20px; text-align: left; margin-bottom: 24px; border-radius: var(--radius);">
+        <p style="margin: 0 0 10px 0; font-size: 0.95rem; color: var(--text);">
+          <strong>Próximos pasos:</strong>
+        </p>
+        <ul style="margin: 0; padding-left: 20px; font-size: 0.9rem; color: var(--text-muted); line-height: 1.6;">
+          <li>Su caso ha sido registrado en nuestro sistema.</li>
+          <li>Un agente legal se estará comunicando con usted en las próximas 24-48 horas.</li>
+          <li>En esa llamada coordinaremos el pago de la consulta ($250) y agendaremos su cita.</li>
+        </ul>
+      </div>
+      <button class="btn btn-primary" onclick="window.location.reload()" style="padding: 14px 28px; font-size: 1rem; width: 100%;">
+        Aceptar y ver mi perfil
+      </button>
     </div>
   </div>
 </section>
+
 

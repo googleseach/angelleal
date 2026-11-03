@@ -77,42 +77,41 @@ function stateSnapshot(){
 
 function scheduleSave(){
   if(state.sessionToken === "demo-token-12345") return;
-  
   const note = document.getElementById("save-note");
   if(note) note.textContent = "Guardando…";
-  
   clearTimeout(saveTimer);
   saveTimer = setTimeout(async ()=>{
     try{
       await apiCall("guardarProgreso", {sessionToken: state.sessionToken, progreso: stateSnapshot()});
       if(note) note.textContent = "Progreso guardado ✓";
     }catch(err){
-      if(note) note.textContent = "No se pudo guardar.";
-      console.error("Error al guardar:", err);
+      if(note) note.textContent = "No se pudo guardar (revise su conexión).";
     }
-  }, 1000);
+  }, 900);
 }
 
 async function submitApplication(){
-  if(state.sessionToken === "demo-token-12345") {
-    document.getElementById("app").classList.add("hidden");
-    document.getElementById("top-status").classList.add("hidden");
-    document.getElementById("confirm-screen").classList.remove("hidden");
-    return;
-  }
-
   const btn = document.getElementById("btn-next");
   if(btn){ btn.disabled = true; btn.textContent = "Enviando…"; }
-  try{
-    await apiCall("enviarSolicitud", {sessionToken: state.sessionToken, progreso: stateSnapshot()});
-    hideErrorBanner();
-    document.getElementById("app").classList.add("hidden");
-    document.getElementById("top-status").classList.add("hidden");
-    document.getElementById("confirm-screen").classList.remove("hidden");
-  }catch(err){
-    alert("No se pudo enviar la solicitud: " + (err.message||"intente de nuevo."));
-    if(btn){ btn.disabled = false; btn.textContent = "Enviar solicitud"; }
-  }
+  
+  // Simulamos un pequeño retraso de 1.5 segundos para dar sensación de procesamiento
+  setTimeout(async () => {
+    try {
+      // Intentamos guardar en el backend real si no es demo
+      if(state.sessionToken !== "demo-token-12345") {
+        await apiCall("enviarSolicitud", {sessionToken: state.sessionToken, progreso: stateSnapshot()});
+      }
+      
+      hideErrorBanner();
+      document.getElementById("app").classList.add("hidden");
+      document.getElementById("top-status").classList.add("hidden");
+      document.getElementById("confirm-screen").classList.remove("hidden");
+      
+    } catch(err) {
+      alert("No se pudo enviar la solicitud: " + (err.message||"intente de nuevo."));
+      if(btn){ btn.disabled = false; btn.textContent = "Enviar solicitud"; }
+    }
+  }, 1500);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -123,14 +122,12 @@ document.addEventListener("DOMContentLoaded", () => {
     btnNextEl.addEventListener("click", async (e)=>{
       e.preventDefault();
       
-      // Validamos el paso
       if(!validateStep(state.currentStep)) return;
       
-      // 🚀 AVANZAMOS INMEDIATAMENTE (sin esperar al guardado)
       if(state.currentStep < 4){
         state.currentStep++;
         renderStep();
-        scheduleSave(); // Se guarda en segundo plano
+        scheduleSave();
       } else {
         await submitApplication();
       }
