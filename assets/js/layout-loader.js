@@ -18,8 +18,9 @@
     loadHTML("#app-practica", "views/practica.html"),
     loadHTML("#app-consultas", "views/consultas.html"),
     loadHTML("#app-contacto", "views/contacto.html"),
-    loadHTML("#app-footer", "views/footer.html")
+    loadHTML("#app-footer", "views/footer.html"),`n    loadHTML("#app-perfil", "views/perfil.html")
   ]);
 
   document.dispatchEvent(new Event("layoutLoaded"));
 });
+

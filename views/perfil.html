@@ -1,0 +1,62 @@
+﻿<section class="page" id="page-perfil">
+  <div class="breadcrumb-bar">
+    <div class="breadcrumb">
+      <a href="#" onclick="showPage('inicio'); return false;">Inicio</a><span class="sep">›</span><span>Mi Perfil</span>
+    </div>
+  </div>
+
+  <div class="page-content" style="max-width: 1000px; padding-top: 40px;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px;">
+      <div>
+        <h1 style="font-size: 2rem; margin-bottom: 5px;">Mi Perfil</h1>
+        <p style="margin: 0; color: var(--text-muted);">Bienvenido(a), <span id="perfil-nombre" style="font-weight: 600; color: var(--ink);">Cargando...</span></p>
+      </div>
+      <button class="btn btn-secondary" onclick="cerrarSesionPerfil()">Cerrar sesión</button>
+    </div>
+
+    <!-- TABS DEL PERFIL -->
+    <div style="display: flex; gap: 20px; border-bottom: 1px solid var(--line-soft); margin-bottom: 30px;">
+      <div class="perfil-tab active" data-tab="solicitudes" onclick="switchPerfilTab('solicitudes')">Mis Solicitudes</div>
+      <div class="perfil-tab" data-tab="pagos" onclick="switchPerfilTab('pagos')">Mis Pagos</div>
+      <div class="perfil-tab" data-tab="datos" onclick="switchPerfilTab('datos')">Mis Datos</div>
+    </div>
+
+    <!-- CONTENIDO: SOLICITUDES -->
+    <div id="perfil-tab-solicitudes" class="perfil-tab-content">
+      <div class="review-block" style="padding: 24px;">
+        <h3 style="margin-bottom: 16px;">Historial de Solicitudes</h3>
+        <div id="perfil-lista-solicitudes">
+          <p style="color: var(--text-muted); font-size: 0.9rem;">Cargando solicitudes...</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENIDO: PAGOS -->
+    <div id="perfil-tab-pagos" class="perfil-tab-content hidden">
+      <div class="review-block" style="padding: 24px;">
+        <h3 style="margin-bottom: 16px;">Historial de Pagos</h3>
+        <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 20px;">Los pagos son verificados por nuestra oficina. Si ha realizado un pago, aparecerá reflejado aquí en un plazo de 24-48 horas.</p>
+        <div id="perfil-lista-pagos">
+          <p style="color: var(--text-muted); font-size: 0.9rem;">No hay pagos registrados aún.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONTENIDO: DATOS -->
+    <div id="perfil-tab-datos" class="perfil-tab-content hidden">
+      <div class="review-block" style="padding: 24px;">
+        <h3 style="margin-bottom: 16px;">Mis Datos Personales</h3>
+        <form id="perfil-form-datos" onsubmit="guardarDatosPerfil(event)">
+          <div class="row2">
+            <div class="field"><label>Nombre completo</label><input type="text" id="perfil-edit-nombre" disabled></div>
+            <div class="field"><label>Correo electrónico</label><input type="email" id="perfil-edit-email" disabled></div>
+          </div>
+          <div class="field"><label>Teléfono</label><input type="tel" id="perfil-edit-telefono" placeholder="Actualice su teléfono"></div>
+          <div class="field"><label>Dirección</label><input type="text" id="perfil-edit-direccion" placeholder="Actualice su dirección"></div>
+          <button type="submit" class="btn btn-primary" style="margin-top: 10px;">Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</section>

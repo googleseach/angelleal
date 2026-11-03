@@ -358,3 +358,18 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Perfil Tabs */
+.perfil-tab {
+  padding: 10px 0;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--text-muted);
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s;
+}
+.perfil-tab:hover { color: var(--ink); }
+.perfil-tab.active {
+  color: var(--red);
+  border-bottom-color: var(--red);
+}
