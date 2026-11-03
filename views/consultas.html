@@ -141,7 +141,13 @@
         <div class="step-nav">
           <button type="button" class="btn btn-secondary" id="btn-back">Atrás</button>
           <span class="save-note" id="save-note"></span>
-          <button type="button" class="btn btn-primary" id="btn-next" onclick="alert('PRUEBA DE CLIC: El boton responde.'); if(window.state && window.state.currentStep === 4) { window.enviarSolicitudForzada(); } else { document.dispatchEvent(new Event('avanzarPaso')); }">Continuar</button>
+          <button type="button" class="btn btn-primary" id="btn-next" onclick="
+  if(window.state && window.state.currentStep === 4) { 
+    window.enviarSolicitudForzada(); 
+  } else { 
+    document.dispatchEvent(new Event('avanzarPaso')); 
+  }
+">Continuar</button>
         </div>
       </main>
     </div>
@@ -167,6 +173,7 @@
     </div>
   </div>
 </section>
+
 
 
 
