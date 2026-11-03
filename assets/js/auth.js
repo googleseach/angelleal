@@ -18,7 +18,6 @@
     // --- ACCESO MAESTRO (MODO DEMO) ---
     if (email === "admin@angelleal.com" && password === "admin123") {
       hideErrorBanner();
-      // Simulamos un token falso para que el formulario funcione visualmente
       onAuthed("demo-token-12345", email);
       return;
     }
