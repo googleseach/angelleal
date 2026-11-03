@@ -15,7 +15,19 @@
 
   // 2. Mostrar solicitudes
   let solicitudesHTML = "";
-  if (window.state && window.state.caseType) {
+    const ultimoCaso = localStorage.getItem("al_ultimo_caso");
+  if (ultimoCaso) {
+    const caseNames = {asilo:"Asilo", residencia:"Residencia", ciudadania:"Ciudadanía", deportacion:"Deportación", perdon:"Perdón/FOIA", trabajo:"Visa de Trabajo", estatal:"Ley Estatal"};
+    solicitudesHTML = `
+      <div style="border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 16px; margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <strong style="color: var(--ink);">Solicitud de ${caseNames[ultimoCaso] || ultimoCaso}</strong>
+          <span style="background: #EAF3EA; color: var(--green); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">En revisión</span>
+        </div>
+        <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">Enviada recientemente.</p>
+      </div>
+    `;
+  } else if (window.state && window.state.caseType) {
     const caseNames = {asilo:"Asilo", residencia:"Residencia", ciudadania:"Ciudadanía", deportacion:"Deportación", perdon:"Perdón/FOIA", trabajo:"Visa de Trabajo", estatal:"Ley Estatal"};
     solicitudesHTML = `
       <div style="border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 16px; margin-bottom: 10px;">
@@ -65,3 +77,4 @@ document.addEventListener("layoutLoaded", () => {
     initPerfil();
   }
 });
+

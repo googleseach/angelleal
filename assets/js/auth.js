@@ -63,7 +63,11 @@ function onAuthed(token, email){
   const userEmailLabel = document.getElementById("user-email-label");
   if(userEmailLabel) userEmailLabel.textContent = email === "admin@angelleal.com" ? "MODO DEMO" : email;
   
-  if(typeof renderRail === 'function') renderRail();
+    if(typeof renderRail === 'function') renderRail();
+  // REDIRECCIÓN AUTOMÁTICA AL PERFIL TRAS LOGIN
+  if (typeof showPage === 'function') {
+    setTimeout(() => { showPage('perfil'); }, 100);
+  }
   if(typeof renderStep === 'function') renderStep();
 }
 
@@ -73,3 +77,4 @@ function cerrarSesionGlobal() {
   window.location.reload();
 }
 window.cerrarSesionGlobal = cerrarSesionGlobal;
+

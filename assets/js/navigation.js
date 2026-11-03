@@ -37,3 +37,4 @@ function showInfo(){
   const crumb = document.getElementById("consultas-crumb");
   if(crumb) crumb.textContent = "Consultas";
 }
+
