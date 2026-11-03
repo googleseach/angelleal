@@ -2,6 +2,8 @@
   sessionToken: null, email: null, currentStep: 0,
   caseType: null, personal: {}, caseDetails: {}, trips: [], files: {}
 };
+// Exponer state globalmente
+window.state = state;
 let saveTimer = null;
 
 function esc(value){
@@ -90,54 +92,43 @@ function scheduleSave(){
   }, 900);
 }
 
-async function submitApplication(){
+// 🚀 FUNCIÓN GLOBAL FORZADA PARA EL BOTÓN
+window.enviarSolicitudForzada = async function() {
+  console.log("Enviando solicitud forzada...");
   const btn = document.getElementById("btn-next");
   if(btn){ btn.disabled = true; btn.textContent = "Enviando…"; }
   
-  try {
-    if(state.sessionToken !== "demo-token-12345") {
-      await apiCall("enviarSolicitud", {sessionToken: state.sessionToken, progreso: stateSnapshot()});
+  setTimeout(async () => {
+    try {
+      if(state.sessionToken !== "demo-token-12345") {
+        await apiCall("enviarSolicitud", {sessionToken: state.sessionToken, progreso: stateSnapshot()});
+      }
+      
+      hideErrorBanner();
+      document.getElementById("app").classList.add("hidden");
+      document.getElementById("top-status").classList.add("hidden");
+      document.getElementById("confirm-screen").classList.remove("hidden");
+      
+    } catch(err) {
+      console.error(err);
+      alert("No se pudo enviar la solicitud: " + (err.message||"intente de nuevo."));
+      if(btn){ btn.disabled = false; btn.textContent = "Enviar solicitud"; }
     }
-    
-    // Si llega aquí, mostramos la pantalla de confirmación (Gracias)
-    hideErrorBanner();
-    document.getElementById("app").classList.add("hidden");
-    document.getElementById("top-status").classList.add("hidden");
-    document.getElementById("confirm-screen").classList.remove("hidden");
-    
-  } catch(err) {
-    console.error(err);
-    alert("No se pudo enviar la solicitud: " + (err.message||"intente de nuevo."));
-    if(btn){ btn.disabled = false; btn.textContent = "Enviar solicitud"; }
+  }, 1000);
+};
+
+// Evento para avanzar pasos (cuando el botón tiene el onclick directo)
+document.addEventListener("avanzarPaso", () => {
+  if(state.currentStep < 4){
+    if(!validateStep(state.currentStep)) return;
+    state.currentStep++;
+    renderStep();
+    scheduleSave();
   }
-}
+});
 
 document.addEventListener("DOMContentLoaded", () => {
   initAuth();
-  
-  const btnNextEl = document.getElementById("btn-next");
-  if(btnNextEl){
-    // Nos aseguramos de quitar cualquier evento previo
-    btnNextEl.replaceWith(btnNextEl.cloneNode(true)); 
-    const cleanBtn = document.getElementById("btn-next");
-
-    cleanBtn.addEventListener("click", async (e)=>{
-      e.preventDefault();
-      
-      // Si estamos en el paso final, enviamos
-      if(state.currentStep === 4) {
-        await submitApplication();
-        return;
-      }
-
-      // Si no, validamos y avanzamos
-      if(!validateStep(state.currentStep)) return;
-      
-      state.currentStep++;
-      renderStep();
-      scheduleSave();
-    });
-  }
 
   const btnBackEl = document.getElementById("btn-back");
   if(btnBackEl){
