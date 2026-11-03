@@ -4,7 +4,11 @@
 
 function initPerfil() {
   const email = localStorage.getItem("al_email");
-  if (!email) return;
+  if (!email) {
+    alert("Por favor, inicie sesión para ver su perfil.");
+    showPage("consultas");
+    return;
+  }
 
   // Mostrar nombre y datos
   document.getElementById("perfil-nombre").textContent = email.split('@')[0];
@@ -14,31 +18,44 @@ function initPerfil() {
   if (editNombre) editNombre.value = email.split('@')[0];
   if (editEmail) editEmail.value = email;
 
-  // Simular carga de solicitudes (en producción, esto vendría del backend)
-  const solicitudesHTML = `
+  // Cargar las solicitudes desde el estado global o mostrar una por defecto
+  let solicitudesHTML = "";
+  if (window.state && window.state.caseType) {
+    const caseNames = {asilo:"Asilo", residencia:"Residencia", ciudadania:"Ciudadanía", deportacion:"Deportación", perdon:"Perdón/FOIA", trabajo:"Visa de Trabajo", estatal:"Ley Estatal"};
+    solicitudesHTML = `
+      <div style="border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 16px; margin-bottom: 10px;">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+          <strong style="color: var(--ink);">Solicitud de ${caseNames[window.state.caseType] || window.state.caseType}</strong>
+          <span style="background: #EAF3EA; color: var(--green); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">En revisión</span>
+        </div>
+        <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">Enviada recientemente.</p>
+      </div>
+    `;
+  } else {
+    solicitudesHTML = `<p style="color: var(--text-muted); font-size: 0.9rem;">No tiene solicitudes recientes.</p>`;
+  }
+  document.getElementById("perfil-lista-solicitudes").innerHTML = solicitudesHTML;
+
+  // Cargar Pagos (Simulado)
+  document.getElementById("perfil-lista-pagos").innerHTML = `
     <div style="border: 1px solid var(--line-soft); border-radius: var(--radius); padding: 16px; margin-bottom: 10px;">
       <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
-        <strong style="color: var(--ink);">Solicitud de Asilo</strong>
-        <span style="background: #EAF3EA; color: var(--green); padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">En revisión</span>
+        <strong style="color: var(--ink);">Consulta Legal</strong>
+        <span style="background: #FFF4E5; color: #B7791F; padding: 2px 8px; border-radius: 12px; font-size: 0.75rem; font-weight: 600;">Pendiente</span>
       </div>
-      <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">Enviada el: ${new Date().toLocaleDateString()}</p>
-      <button class="btn btn-secondary" style="margin-top: 10px; padding: 6px 12px; font-size: 0.8rem;">Ver detalles</button>
+      <p style="margin: 0; font-size: 0.85rem; color: var(--text-muted);">Monto: $250.00</p>
+      <p style="margin: 4px 0 0; font-size: 0.8rem; color: var(--text-muted);">Un agente se comunicará con usted para coordinar el pago.</p>
     </div>
   `;
-  document.getElementById("perfil-lista-solicitudes").innerHTML = solicitudesHTML;
 }
 
 function switchPerfilTab(tabName) {
-  // Ocultar todos los contenidos
   document.querySelectorAll(".perfil-tab-content").forEach(el => el.classList.add("hidden"));
-  // Quitar active de todos los tabs
   document.querySelectorAll(".perfil-tab").forEach(el => el.classList.remove("active"));
   
-  // Mostrar el seleccionado
   const targetContent = document.getElementById(`perfil-tab-${tabName}`);
   if (targetContent) targetContent.classList.remove("hidden");
   
-  // Poner active en el tab clickeado
   const targetTab = document.querySelector(`.perfil-tab[data-tab="${tabName}"]`);
   if (targetTab) targetTab.classList.add("active");
 }

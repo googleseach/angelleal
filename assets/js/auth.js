@@ -103,3 +103,4 @@ function restoreProgress(p){
   renderRail();
   renderStep();
 }
+
