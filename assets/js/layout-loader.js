@@ -7,7 +7,7 @@
       const el = document.querySelector(selector);
       if (el) el.innerHTML = html;
     } catch (error) {
-      console.error(error);
+      console.error("Fallo al cargar:", file, error);
     }
   };
 

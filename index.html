@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
-<head><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Angel F. Leal, Jr., P.A. — Abogados de Inmigración en Miami</title>
@@ -15,59 +15,22 @@
 </head>
 <body>
 
-<!-- CONTENEDORES PARA LOS FRAGMENTOS HTML -->
 <div id="app-header"></div>
 <div id="app-inicio"></div>
 <div id="app-practica"></div>
 <div id="app-consultas"></div>
-<div id="app-contacto"></div>`n<div id="app-perfil"></div>
+<div id="app-contacto"></div>
+<div id="app-perfil"></div>
 <div id="app-footer"></div>
 
-<!-- SCRIPTS -->
-<script src="assets/js/layout-loader.js?v=15"></script>
-<script src="assets/js/api.js"></script>
-<script src="assets/js/auth.js?v=11"></script>
-<script src="assets/js/navigation.js?v=15"></script>
-<script src="assets/js/form-config.js?v=11"></script>
-<script src="assets/js/form-steps.js?v=11"></script>
-<script src="assets/js/form-main.js?v=15"></script>
-
-<!-- INICIALIZACIÓN FINAL (espera a que el layout esté cargado) -->
-<script>
-  document.addEventListener("layoutLoaded", () => {
-    if(typeof initAuth === "function") initAuth();
-    
-    // Cargar sesión guardada si existe
-    const token = localStorage.getItem("al_session");
-    const email = localStorage.getItem("al_email");
-    
-    if(token && email && typeof onAuthed === "function"){
-      onAuthed(token, email);
-      apiCall("obtenerProgreso", {sessionToken: token}).then(data=>{
-        if(data.progreso && typeof restoreProgress === "function") restoreProgress(data.progreso);
-      }).catch(()=>{});
-    }
-  });
-</script>
-
+<script src="assets/js/layout-loader.js?v=16"></script>
+<script src="assets/js/api.js?v=16"></script>
+<script src="assets/js/auth.js?v=16"></script>
+<script src="assets/js/navigation.js?v=16"></script>
+<script src="assets/js/form-config.js?v=16"></script>
+<script src="assets/js/form-steps.js?v=16"></script>
+<script src="assets/js/form-main.js?v=16"></script>
+<script src="assets/js/perfil.js?v=16"></script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

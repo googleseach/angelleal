@@ -58,15 +58,6 @@
       }
     });
   }
-
-  const logoutBtn = document.getElementById("logout-btn");
-  if(logoutBtn) {
-    logoutBtn.addEventListener("click", ()=>{
-      localStorage.removeItem("al_session");
-      localStorage.removeItem("al_email");
-      location.reload();
-    });
-  }
 }
 
 function showAuthMsg(text, type){
@@ -77,8 +68,11 @@ function showAuthMsg(text, type){
 }
 
 function onAuthed(token, email){
-  state.sessionToken = token;
-  state.email = email;
+  if(window.state) {
+    window.state.sessionToken = token;
+    window.state.email = email;
+  }
+  
   localStorage.setItem("al_session", token);
   localStorage.setItem("al_email", email);
   
@@ -94,13 +88,22 @@ function onAuthed(token, email){
   const userEmailLabel = document.getElementById("user-email-label");
   if(userEmailLabel) userEmailLabel.textContent = email === "admin@angelleal.com" ? "MODO DEMO: " + email : email;
   
-  renderRail();
-  renderStep();
+  if(typeof renderRail === 'function') renderRail();
+  if(typeof renderStep === 'function') renderStep();
 }
 
 function restoreProgress(p){
-  state = {...state, ...p, sessionToken: state.sessionToken, email: state.email};
-  renderRail();
-  renderStep();
+  if(!window.state) return;
+  window.state = {...window.state, ...p};
+  if(typeof renderRail === 'function') renderRail();
+  if(typeof renderStep === 'function') renderStep();
 }
 
+function cerrarSesionGlobal() {
+  localStorage.removeItem("al_session");
+  localStorage.removeItem("al_email");
+  window.location.href = "index.html";
+}
+
+// Exponer globalmente para que el botón del header lo use
+window.cerrarSesionGlobal = cerrarSesionGlobal;

@@ -5,8 +5,18 @@
   document.querySelectorAll(".main-nav a").forEach(a => {
     a.classList.toggle("active", a.dataset.page === pageId);
   });
-  document.getElementById("main-nav").classList.remove("open");
-  if(pageId === "consultas"){ showInfo(); if(window.state){ window.state.currentStep = 0; } }
+  const nav = document.getElementById("main-nav");
+  if(nav) nav.classList.remove("open");
+
+  if(pageId === "consultas"){
+    if(typeof showInfo === 'function') showInfo();
+    if(window.state) window.state.currentStep = 0; // Reiniciar al paso 1
+  }
+
+  if(pageId === "perfil"){
+    if(typeof initPerfil === 'function') initPerfil();
+  }
+
   window.scrollTo({top: 0, behavior: "smooth"});
 }
 
@@ -32,4 +42,3 @@ function showInfo(){
   const crumb = document.getElementById("consultas-crumb");
   if(crumb) crumb.textContent = "Consultas";
 }
-
